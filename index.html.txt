@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mariage Ahou & Kouame</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    :root {
+      --bg: #f7f2ea;
+      --text: #4a3b2f;
+      --gold: #c89a5b;
+      --gold-dark: #b4833f;
+      --card: #ffffff;
+    }
+
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* BANNIÈRE */
+    .hero {
+      position: relative;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      filter: brightness(0.85);
+      transform: scale(1.02);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.35), transparent),
+                  linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.65));
+    }
+
+    .halo {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center,
+        rgba(200,154,91,0.35), transparent 60%);
+      mix-blend-mode: soft-light;
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+
+    .hero-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeInUp 1.8s ease-out;
+    }
+
+    .hero-title {
+      font-size: 28px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .hero-subtitle {
+      margin-top: 8px;
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .hero-date {
+      margin-top: 10px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .hero-line {
+      margin-top: 14px;
+      font-size: 13px;
+      font-style: italic;
+      opacity: 0.9;
+    }
+
+    /* SECTIONS */
+    .section {
+      max-width: 900px;
+      margin: 25px auto;
+      padding: 0 20px;
+      animation: fadeIn 1.2s ease-out;
+    }
+
+    h3 {
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      color: var(--gold-dark);
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 15px 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      animation: slideUp 0.8s ease-out;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--gold-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    }
+
+    /* COMPTE À REBOURS */
+    .countdown {
+      margin: 25px auto;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .count-box {
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px 15px;
+      min-width: 70px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+
+    .count-number { font-size: 20px; font-weight: 700; }
+    .count-label { font-size: 11px; text-transform: uppercase; }
+
+    /* FORMULAIRE */
+    form { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 2px rgba(200,154,91,0.25);
+    }
+
+    /* MUSIQUE */
+    .music-toggle {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      background: var(--gold);
+      color: #fff;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 12px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 20;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.9; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BANNIÈRE -->
+  <header class="hero">
+    <img src="Couple-Kouame-1er.jpg" class="hero-image">
+    <div class="hero-overlay"></div>
+    <div class="halo"></div>
+
+    <div class="hero-content">
+      <div class="hero-title">Mlle AHOU & M. KOUAME</div>
+      <div class="hero-subtitle">Unis pour la vie</div>
+      <div class="hero-date">Samedi 20 juin 2026 • Soubré</div>
+      <div class="hero-line">Deux âmes, une promesse, un jour pour toujours.</div>
+
+      <div class="countdown" id="countdown">
+        <div class="count-box"><span id="days">0</span><span class="count-label">Jours</span></div>
+        <div class="count-box"><span id="hours">0</span><span class="count-label">Heures</span></div>
+        <div class="count-box"><span id="minutes">0</span><span class="count-label">Minutes</span></div>
+        <div class="count-box"><span id="seconds">0</span><span class="count-label">Secondes</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PROGRAMME -->
+  <section class="section">
+    <h3>Programme</h3>
+
+    <div class="card">📜 <strong>Mariage civil</strong><br>Mairie de Soubré • 09h30</div>
+    <div class="card">⛪ <strong>Cérémonie religieuse</strong><br>Église CMA-CI de Gbaka-Lekpa • 10h30</div>
+    <div class="card">🎉 <strong>Réception</strong><br>Lycée Charles Bauza Donwahi • 14h00</div>
+  </section>
+
+  <!-- FORMULAIRE -->
+  <section class="section">
+    <h3>Confirmez votre présence</h3>
+
+    <div class="card">
+      <form id="rsvpForm">
+        <input type="text" name="nom" id="name" placeholder="Nom complet" required>
+        <input type="tel" name="numero" id="phone" placeholder="Numéro de téléphone" required>
+        <button type="submit" class="btn">Confirmer ma présence</button>
+      </form>
+
+      <p id="confirmationMessage" style="color:green; font-weight:600; margin-top:10px;"></p>
+    </div>
+  </section>
+
+  <!-- LIEU -->
+  <section class="section">
+    <h3>Lieu</h3>
+    <div class="card">
+      <a class="btn" href="https://www.google.com/maps/place/M9F3%2BFVJ+Centre+de+Sant%C3%A9+Rural+Gnipi+2" target="_blank">
+        Voir sur Google Maps
+      </a>
+    </div>
+  </section>
+
+  <!-- MUSIQUE -->
+  <audio id="bgMusic" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b4e9e6d8a.mp3?filename=romantic-piano-112194.mp3" loop></audio>
+  <button class="music-toggle" id="musicToggle">
+    🎵 <span id="musicLabel">Musique : ON</span>
+  </button>
+
+  <!-- COMPTE À REBOURS -->
+  <script>
+    const weddingDate = new Date("2026-06-20T09:30:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = weddingDate - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "Le grand jour est arrivé ! 🎉";
+        return;
+      }
+
+      const seconds = Math.floor(diff / 1000);
+      document.getElementById("days").textContent = Math.floor(seconds / 86400);
+      document.getElementById("hours").textContent = Math.floor((seconds % 86400) / 3600);
+      document.getElementById("minutes").textContent = Math.floor((seconds % 3600) / 60);
+      document.getElementById("seconds").textContent = seconds % 60;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+
+  <!-- FORMULAIRE CONNECTÉ -->
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwvUUI1pPvftsCxXq4NIG2pQyQz0ipWLB4ueae2K3dL5xdeKhh9QK4YQa1NwwvRS4Qi/exec";
+
+    document.getElementById("rsvpForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const form = new FormData(document.getElementById("rsvpForm"));
+      const name = document.getElementById("name").value;
+
+      fetch(scriptURL, { method: "POST", body: form })
+        .then(() => {
+          document.getElementById("confirmationMessage").textContent =
+            "Merci " + name + " ! Votre présence est confirmée 💌";
+          document.getElementById("rsvpForm").reset();
+        });
+    });
+  </script>
+
+  <!-- MUSIQUE -->
+  <script>
+    const bgMusic = document.getElementById("bgMusic");
+    const musicToggle = document.getElementById("musicToggle");
+    const musicLabel = document.getElementById("musicLabel");
+    let musicOn = true;
+
+    window.addEventListener("load", () => {
+      bgMusic.volume = 0.4;
+      bgMusic.play().catch(() => {
+        musicLabel.textContent = "Musique : OFF";
+        musicOn = false;
+      });
+    });
+
+    musicToggle.addEventListener("click", () => {
+      if (musicOn) {
+        bgMusic.pause();
+        musicLabel.textContent = "Musique : OFF";
+      } else {
+        bgMusic.play();
+        musicLabel.textContent = "Musique : ON";
+      }
+      musicOn = !musicOn;
+    });
+  </script>
+
+</body>
+</html>
