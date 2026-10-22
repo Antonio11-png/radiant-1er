@@ -1,12 +1,16 @@
 export type PaymentStatus = "paid" | "pending" | "late";
 export type LeaseStatus = "active" | "renewal" | "ended";
+export type PropertyType = "Appartement" | "Immeuble" | "Maison";
+export type TenantStatus = "A jour" | "Relance" | "Depot recu";
+export type PaymentMethod = "Virement" | "Carte" | "Prelevement";
+export type DataSource = "demo" | "supabase" | "fallback";
 
 export interface Property {
   id: string;
   name: string;
   address: string;
   city: string;
-  type: "Appartement" | "Immeuble" | "Maison";
+  type: PropertyType;
   units: number;
   occupiedUnits: number;
   monthlyRevenue: number;
@@ -23,7 +27,7 @@ export interface Tenant {
   monthlyRent: number;
   balance: number;
   leaseEndDate: string;
-  status: "A jour" | "Relance" | "Depot recu";
+  status: TenantStatus;
 }
 
 export interface Lease {
@@ -44,7 +48,7 @@ export interface Payment {
   amount: number;
   paidAmount: number;
   status: PaymentStatus;
-  method: "Virement" | "Carte" | "Prelevement";
+  method: PaymentMethod;
 }
 
 export interface DashboardMetric {
@@ -53,3 +57,7 @@ export interface DashboardMetric {
   trend: string;
   tone: "default" | "success" | "warning";
 }
+
+export type PropertyInput = Omit<Property, "id">;
+export type TenantInput = Omit<Tenant, "id">;
+export type PaymentInput = Omit<Payment, "id">;
